@@ -77,7 +77,7 @@ public class MemberDAO {
 	}
 
 	public int register(RegisterDTO reg) {
-		String sql="SELECT * FROM sc VALUES(?,?,?)";
+		String sql="INSERT INTO sc VALUES(?,?,?)";
 		int rowCount=0;
 		
 		PreparedStatement ps=null;
