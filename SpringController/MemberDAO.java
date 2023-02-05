@@ -5,6 +5,7 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 import org.springframework.stereotype.Repository;
 
@@ -57,17 +58,20 @@ public class MemberDAO {
 	public LoginDTO login(String id) {
 		String sql="SELECT * FROM sc WHERE id=?";
 		
+		//ResultSet : Statement 객체로 SELECT문을 사용하여 얻어온 
+		//레코드 값들을 테이블의 형태로 갖는 객체이다.
 		PreparedStatement ps=null;
 		ResultSet rs=null;
 		
 		try {
 			ps=con.prepareStatement(sql);
 			ps.setString(1, id);
-			rs=ps.executeQuery();
-			if(rs.next()) {
-				LoginDTO login=new LoginDTO();
+			rs=ps.executeQuery(); //조회
+			if(rs.next()) { //얻어온 데이터가 있는지
+				RegisterDTO login=new RegisterDTO();
 				login.setId(id);
 				login.setPw(rs.getString("pw"));
+				login.setName(rs.getString("name"));
 				return login;
 			}
 		}catch(SQLException e) {
@@ -92,5 +96,68 @@ public class MemberDAO {
 			e.printStackTrace();
 		}	
 		return rowCount;
+	}
+	
+	public ArrayList<RegisterDTO> list() {
+		PreparedStatement ps=null;
+		ResultSet rs=null;
+		ArrayList<RegisterDTO> members=new ArrayList<>();
+		try {
+			ps=con.prepareStatement("SELECT * FROM sc");
+			rs=ps.executeQuery();
+			while (rs.next()) {
+				RegisterDTO reg=new RegisterDTO();
+				reg.setId(rs.getString("id"));
+				reg.setPw(rs.getString("pw"));
+				reg.setName(rs.getString("name"));
+				members.add(reg);
+				
+			}
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}
+		return members;
+	}
+	
+	public void update(RegisterDTO reg) {
+		
+		int rowCount=0;
+		PreparedStatement ps=null;
+		String sql="";		
+		try {
+			if(reg.getPw()=="") {
+				sql="UPDATE sc SET name=? WHERE id=?";
+				ps=con.prepareStatement(sql);
+				ps.setString(1, reg.getName());
+				ps.setString(2, reg.getId());
+			}
+			else if(reg.getName()=="") {
+				sql="UPDATE sc SET pw=? WHERE id=?";
+				ps=con.prepareStatement(sql);
+				ps.setString(1, reg.getPw());
+				ps.setString(2, reg.getId());
+			}else {
+				sql="UPDATE sc SET pw=?, name=? WHERE id=?";
+				ps=con.prepareStatement(sql);
+				ps.setString(1, reg.getPw());
+				ps.setString(2, reg.getName());
+				ps.setString(3, reg.getId());
+			}
+			rowCount=ps.executeUpdate();
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public void delete(String id) {
+		String sql="DELETE FROM sc WHERE id=?";
+		PreparedStatement ps=null;
+		try {
+			ps=con.prepareStatement(sql);
+			ps.setString(1, id);
+			ps.execute();
+		}catch (SQLException e) {
+			e.printStackTrace();
+		}
 	}
 }
