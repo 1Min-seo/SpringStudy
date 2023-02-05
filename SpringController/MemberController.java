@@ -1,5 +1,7 @@
 package com.care.sc.controller;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -85,6 +87,8 @@ public class MemberController {
 	
 	@PostMapping("register")
 	public String register(RegisterDTO reg,Model model) {
+		//Model은 addAttribute()와 같은 기능을 통해 모델에 원하는
+		//속성과 그것에 대한 값을 주어 전달할 뷰에 데이터를 전달한다.
 		String msg=service.register(reg);
 		model.addAttribute("msg", msg);
 		if("회원 가입 성공".equals(msg))
@@ -92,9 +96,76 @@ public class MemberController {
 		return "register";
 		//회원 가입 성공은 index
 		//회원 가입 실패는 register
+		
 //		System.out.println("아이디: "+register.getId());
 //		System.out.println("비밀번호: "+register.getPw());
 //		System.out.println("이름: "+register.getName());
+	}
+	
+	@RequestMapping("list")
+	public String list(Model model) {
+		model.addAttribute("members",service.list());
+		service.list();
+		return "list";
+	}
+	
+	@Autowired HttpSession session;
+	
+	@GetMapping("update")
+	public String update() {
+		String id=(String)session.getAttribute("id");//object로 반환
+		if(id==null) {
+			return "login";
+		} 
+		return "update";
+	}
+	
+	@PostMapping("update")
+	public String update(RegisterDTO reg, Model model) {
+		String id=(String)session.getAttribute("id");
+		if(id==null)
+			return "login";
+		
+		reg.setId(id);
+		String msg=service.update(reg);
+		model.addAttribute("msg",msg);
+		if("회원 수정 성공".equals(msg)) {
+			session.setAttribute("name", reg.getName());
+			
+			return "index";
+		}
+		return "update";
+		
+	}
+	
+	@GetMapping("delete")
+	public String delete() {
+		String id=(String)session.getAttribute("id");
+		if(id==null)
+			return "login";
+		
+		return "delete";
+	}
+	
+	@PostMapping("delete")
+	public String delete(String pw, String confirm, Model model) {
+		String id=(String)session.getAttribute("id");
+		if(id==null)
+			return "login";
+		
+		String msg=service.delete(pw,confirm);
+		model.addAttribute("msg", msg);
+		if("회원 삭제 성공".equals(msg)) {
+			return "forward:logout";
+		}
+		return "delete";
+		
+	}
+	
+	@RequestMapping("logout")
+	public String logout() {
+		session.invalidate();
+		return "redirect:index";
 	}
 	//index 요청 시 요청 메서드가 get 또는 post 모두 index() 호출 
 //	@RequestMapping(value="index")
