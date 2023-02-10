@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="com.care.dbConfig.repository.MemberRepository">
+	<select id="login" parameterType="String" resultType="com.care.dbConfig.dto.MemberDTO">
+		SELECT * FROM dbConfig WHERE id=#{id}
+	</select>
+	<insert id="register" parameterType="com.care.dbConfig.dto.MemberDTO">
+		INSERT INTO dbConfig VALUES(#{id}, #{pw}, #{name}, #{email})
+	</insert>
+	<select id="list" resultType="com.care.dbConfig.dto.MemberDTO">
+		SELECT * FROM dbConfig
+	</select>
+	<update id="update" parameterType="com.care.dbConfig.dto.MemberDTO">
+		UPDATE dbConfig
+		<set>
+			<if test="pw != ''">
+				pw=#{pw},
+			</if>
+			<if test="name != ''">
+				name=#{name},
+			</if>
+			<if test="email != ''">
+				email=#{email}
+			</if>
+		</set>
+		WHERE id=#{id}
+	</update>
+	<delete id="delete">
+		DELETE FROM dbConfig WHERE id=#{id}
+	</delete>
+</mapper>
+
