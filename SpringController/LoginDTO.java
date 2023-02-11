@@ -3,7 +3,6 @@ package com.care.sc.dto;
 public class LoginDTO {
 	private String id;
 	private String pw;
-	private String name;
 	
 	public String getId() {
 		return id;
@@ -17,11 +16,6 @@ public class LoginDTO {
 	public void setPw(String pw) {
 		this.pw = pw;
 	}
-	public String getName() {
-		return name;
-	}
-	public void setName(String name) {
-		this.name = name;
-	}
+	
 	
 }
