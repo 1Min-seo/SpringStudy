@@ -13,7 +13,7 @@ public class CookieController {
 	@RequestMapping("cookie/index")
 	public String index(HttpServletResponse response) {
 		Cookie cookie=new Cookie("cookieName","쿠키값");//값 두개를 갖는 생성자 (쿠키 이름과 값)
-		response.addCookie(cookie);
+		response.addCookie(cookie); //클라이언트 응답에 쿠키를 주겠다.
 		return "cookie/index";
 	}
 	
