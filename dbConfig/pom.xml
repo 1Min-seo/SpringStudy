@@ -126,6 +126,7 @@ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 		    <version>21.8.0.0</version>
 		</dependency>
 		
+		here!!
 		<!-- https://mvnrepository.com/artifact/org.mybatis/mybatis -->
 		<dependency>
     		<groupId>org.mybatis</groupId>
@@ -137,7 +138,7 @@ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 		<dependency>
     		<groupId>org.mybatis</groupId>
     		<artifactId>mybatis-spring</artifactId>
-    		<version>2.1.0</version>
+    		<version>3.0.1</version>
 		</dependency>
 		<!-- https://mvnrepository.com/artifact/com.zaxxer/HikariCP -->
 		<dependency>
@@ -151,7 +152,7 @@ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     		<artifactId>spring-jdbc</artifactId>
     		<version>${org.springframework-version}</version>
 		</dependency>
-	
+		here!!
 	</dependencies>
     <build>
         <plugins>
