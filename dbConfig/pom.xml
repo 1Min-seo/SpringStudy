@@ -128,26 +128,26 @@ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 		
 		here!!
 		<!-- https://mvnrepository.com/artifact/org.mybatis/mybatis -->
-		<dependency>
+		<dependency> //데이터베이스 프레임워크
     		<groupId>org.mybatis</groupId>
     		<artifactId>mybatis</artifactId>
     		<version>3.5.11</version>
 		</dependency>
 		
 		<!-- https://mvnrepository.com/artifact/org.mybatis/mybatis-spring -->
-		<dependency>
+		<dependency> //데이터베이스 프레임워크
     		<groupId>org.mybatis</groupId>
     		<artifactId>mybatis-spring</artifactId>
     		<version>3.0.1</version>
 		</dependency>
 		<!-- https://mvnrepository.com/artifact/com.zaxxer/HikariCP -->
-		<dependency>
+		<dependency> //커넥션 역할
     		<groupId>com.zaxxer</groupId>
     		<artifactId>HikariCP</artifactId>
     		<version>4.0.3</version>
 		</dependency>
 		<!-- https://mvnrepository.com/artifact/org.springframework/spring-jdbc -->
-		<dependency>
+		<dependency> //마이바티스 (처리)관리
     		<groupId>org.springframework</groupId>
     		<artifactId>spring-jdbc</artifactId>
     		<version>${org.springframework-version}</version>
