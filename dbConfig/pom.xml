@@ -138,7 +138,7 @@ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 		<dependency> //데이터베이스 프레임워크
     		<groupId>org.mybatis</groupId>
     		<artifactId>mybatis-spring</artifactId>
-    		<version>3.0.1</version>
+    		<version>3.0.1 or 2.1.0</version>
 		</dependency>
 		<!-- https://mvnrepository.com/artifact/com.zaxxer/HikariCP -->
 		<dependency> //커넥션 역할
