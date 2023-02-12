@@ -10,5 +10,26 @@
 	<insert id="register" parameterType="com.care.dbConfig.dto.MemberDTO">
 		INSERT INTO dbConfig VALUES(#{id}, #{pw}, #{name}, #{email})
 	</insert>
+	<select id="list" resultType="com.care.dbConfig.dto.MemberDTO">
+		SELECT * FROM dbConfig
+	</select>
+	<update id="update" parameterType="com.care.dbConfig.dto.MemberDTO">
+		UPDATE dbConfig
+		<set>
+			<if test="pw != ''">
+				pw=#{pw},
+			</if>
+			<if test="name != ''">
+				name=#{name},
+			</if>
+			<if test="email != ''">
+				email=#{email}
+			</if>
+		</set>
+		WHERE id=#{id}
+	</update>
+	<delete id="delete">
+		DELETE FROM dbConfig WHERE id=#{id}
+	</delete>
 </mapper>
 
