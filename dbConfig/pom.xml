@@ -41,7 +41,6 @@ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 			<artifactId>aspectjrt</artifactId>
 			<version>${org.aspectj-version}</version>
 		</dependency>	
-		
 		<!-- Logging -->
 		<dependency>
 			<groupId>org.slf4j</groupId>
