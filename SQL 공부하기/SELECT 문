@@ -1,0 +1,24 @@
+-- CREATE SAMPLE_DB
+CREATE DATABASE SampleDB;
+
+USE SampleDB;
+
+-- CREATE TABLE
+CREATE TABLE department(
+    deptNo INT PRIMARY KEY,
+    deptName VARCHAR(20),
+    location NCHAR(20)
+);
+
+
+CREATE TABLE employee( 
+    empNo INT PRIMARY KEY,
+    empName VARCHAR(20),
+    job VARCHAR(20),    
+    manager INT,
+    hireDate DATE,
+    salary INT,
+    commission INT,
+    deptNo INT FOREIGN KEY 
+    REFERENCES department(deptNo)
+);
