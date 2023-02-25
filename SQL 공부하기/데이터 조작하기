@@ -1,0 +1,74 @@
+--CREATE DATABASE 
+--CREATE DATABASE MEMBER_TEST;
+CREATE DATABASE MEMBER_TEST;
+
+--USE DATABASE
+--USE MEMBER_TEST;
+USE MEMBER_TEST;
+-- CREATE TABLE
+-- T_MEMBER 테이블을 만든다.
+CREATE TABLE T_MEMBER(
+    id INT IDENTITY(1,1),
+    name VARCHAR(10)
+);
+
+-- id와 name은 해당 칼럼의 이름
+-- INT는 숫자형, VARCHAR은 문자열
+-- IDENTITY(1,1)은 해당 컬럼에 특정 제약조건
+
+/*  제약 조건 종류
+    NOT NULL   -   NULL 값을 가지지 못하게 하는
+    UNIZUE     -   중복 값을 갖지 못하게 하는
+    DEFAULT    -   기본 값을 설정해주는
+    IDENTITY   -   데이터가 추가될 때 마다 자동으로 증가되는 값을 가질 수 있도록 하는
+    
+    예를 들어 id INT IDENTITY(1,1)은
+    id컬럼의 값이 1부터 시작해서 자동으로 1씩 증가하여 저장되는 제약조건
+    
+    즉, IDENTITY(start number, increment number)이다.
+*/
+
+-- INSERT INTO
+-- 테이블에 데이터를 입력한다.
+INSERT INTO T_MEMBER(name)VALUES('한민서');
+INSERT T_MEMBER(name) VALUES('둘민서');
+INSERT INTO T_MEMBER VALUES('삼민서');
+SELECT * FROM T_MEMBER;
+
+-- ----------------------------------------------------------------
+CREATE TABLE T_PRODUCT(
+    product_code VARCHAR(5) CONSTRAINT pk_code PRIMARY KEY,
+    product_name VARCHAR(20) NOT NULL,
+    product_price VARCHAR(10) DEFAULT '0',
+    product_remark VARCHAR(100)
+);
+
+/*
+    product_code VARCHAR(5) CONSTRAINT pk_code PRIMARY KEY 에서,
+    pk_code라는 이름으로 기본키를 설정을 한다.
+    기본키는 해당 테이블 내에 존재하는 레코드(행) 중에서 유일하게 식별 가능한 값을 의미
+    따라서 null 값이 들어갈 수 없고, 다른 값과 중복될 수 없다
+    
+    product_name VARCHAR(20) NOT NULL 에서,
+    not null 조건을 통해 null값이 들어갈 수 없도록 설정
+    
+    product_price VARCHAR(10) DEFAULT '0',
+    default 값을 설정해 줌에 따라서 아무 값도 입력하지 않았을 경우 0이라는 값으로 설정
+    
+    product_remark VARCHAR(100)
+    아무 것도 설정하지 않았음
+*/
+
+INSERT INTO T_PRODUCT(product_code, product_name, product_price, product_remark)
+VALUES ('A001', '청소기', '1000000', '무선');
+
+INSERT INTO T_PRODUCT (product_code, product_name)
+VALUES ('A002', '냉장고');
+
+SELECT * FROM T_PRODUCT;
+
+-- ALTER
+-- 처음 만들었던 테이블에 대해 몇가지 수정하고 싶다면?
+
+ALTER TABLE T_PRODUCT
+ALTER COLUMN product_price VARCHAR(20);
