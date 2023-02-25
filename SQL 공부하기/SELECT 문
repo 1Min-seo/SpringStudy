@@ -5,20 +5,96 @@ USE SampleDB;
 
 -- CREATE TABLE
 CREATE TABLE department(
-    deptNo INT PRIMARY KEY,
+    deptNo INT NOT NULL,
     deptName VARCHAR(20),
-    location NCHAR(20)
+    location NCHAR(20),
+    
+    PRIMARY KEY(deptNo)
 );
 
-
-CREATE TABLE employee( 
-    empNo INT PRIMARY KEY,
+CREATE TABLE employee(
+    empNo INT NOT NULL,
     empName VARCHAR(20),
-    job VARCHAR(20),    
+    job VARCHAR(20),
     manager INT,
     hireDate DATE,
     salary INT,
     commission INT,
-    deptNo INT FOREIGN KEY 
-    REFERENCES department(deptNo)
+    deptNo INT,
+    
+    PRIMARY KEY(empNo),
+    FOREIGN KEY (deptNo) REFERENCES department(deptNo)
 );
+
+-- INSERT DATA
+INSERT INTO department(deptNo, deptName, location) VALUES(10,'경리부','서울');
+INSERT INTO department(deptNo, deptName, location) VALUES(20,'인사부','인천');
+INSERT INTO department(deptNo, deptName, location) VALUES(30,'영업부','대전');
+INSERT INTO department(deptNo, deptName, location) VALUES(40,'전산부','부천');
+
+
+INSERT INTO employee (empNo, empName, job, manager, hireDate, salary, deptNo)
+VALUES (1001, '최범우', '사원', 1013, '2007-03-21', 300, 20);
+
+INSERT INTO employee (empNo, empName, job, manager, hireDate, salary, commission, deptNo)
+VALUES (1002, '김범수', '대리', 1005, '2007-04-11', 250, 80, 30);
+
+INSERT INTO employee (empNo, empName, job, manager, hireDate, salary, commission, deptNo)
+VALUES (1003, '장태훈', '과장', 1005, '2005-02-01', 500, 100, 30);
+
+INSERT INTO employee (empNo, empName, job, manager, hireDate, salary, deptNo)
+VALUES (1004, '최상우', '부장', 1008, '2003-09-01', 600, 20);
+
+INSERT INTO employee (empNo, empName, job, manager, hireDate, salary, commission, deptNo)
+VALUES (1005, '변봉중', '과장', 1008, '2003-10-02', 450, 200, 30);
+
+INSERT INTO employee (empNo, empName, job, manager, hireDate, salary, deptNo)
+VALUES (1006, '송원철', '부장', 1005, '2003-08-02', 480, 30);
+
+INSERT INTO employee (empNo, empName, job, manager, hireDate, salary, deptNo)
+VALUES (1007, '문서연', '부장', 1008, '2004-03-08', 520, 10);
+
+INSERT INTO employee (empNo, empName, job, manager, hireDate, salary, commission, deptNo)
+VALUES (1008, '장웅', '차장', 1003, '2004-03-01', 500, 0, 30);
+
+INSERT INTO employee (empNo, empName, job, hireDate, salary, deptNo)
+VALUES (1009, '최상범', '사장', '1996-10-04', 1000, 20);
+
+INSERT INTO employee (empNo, empName, job, manager, hireDate, salary, deptNo)
+VALUES (1010, '이명근', '과장', 1003, '2005-04-01', 500, 10);
+
+INSERT INTO employee (empNo, empName, job, manager, hireDate, salary, deptNo)
+VALUES (1011, '서은혜', '사원', 1007, '2007-02-03', 280, 30);
+
+INSERT INTO employee (empNo, empName, job, manager, hireDate, salary, deptNo)
+VALUES (1012, '이철진', '사원', 1006, '2007-08-06', 300, 20);
+
+INSERT INTO employee (empNo, empName, job, manager, hireDate, salary, deptNo)
+VALUES (1013, '한태범', '부장', 1003, '2002-10-09', 560, 20);
+
+INSERT INTO employee (empNo, empName, job, manager, hireDate, salary, deptNo)
+VALUES (1014, '김광우', '사원', 1006, '2007-11-09', 250, 10);
+
+SELECT * FROM employee;
+
+-- employee 테이블에서 empName과 job, salary 조회
+SELECT empName, job, salary from employee;
+
+-- select문에서 연산자 이용하기
+SELECT empName, job, salary, salary*12 from employee;
+
+-- as를 이용한 열 이름 별칭 사용하기
+-- 지어주는 열 이름에 띄어쓰기를 넣으려면 ''로 묶어준다.
+-- NULL 값과 함께 연산하면 결과는 NULL로 나온다.
+-- 데이터를 넣을 때만 ''쓰고 조회는 안 쓰나..?
+SELECT empName as 사원이름, job as 직급, salary as 월급, (salary*12)+commission as 연봉 from employee;
+
+
+-- distinct 사용하기 (중복을 제외한다!!)
+SELECT job as 직급 from employee;
+
+SELECT DISTINCT job as 직급 FROM employee;
+
+
+-- 직급은 동일하지만 사원 이름이 다르기 때문에 중복된 행이 아니다.
+SELECT DISTINCT job as 직급, empName as 사원이름 FROM employee;
