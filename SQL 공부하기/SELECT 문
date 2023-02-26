@@ -92,7 +92,7 @@ SELECT empName as 사원이름, job as 직급, salary as 월급, (salary*12)+com
 -- NVL 사용하기 (NULL 값을 계산하기 위한)
 -- NVL(FIELD, VAL)
 SELECT empName as 사원이름, job as 직급, salary as 월급,
-NVL(commission,0)as 보너스, (salary*12)+NVL(commission,0) as 연봉
+NVL(commission,0)as 보너스, (salary*12)+NVL(commission,0) as "연 봉"
 from employee;
 
 -- distinct 사용하기 (중복을 제외한다!!)
