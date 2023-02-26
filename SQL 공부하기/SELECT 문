@@ -89,6 +89,11 @@ SELECT empName, job, salary, salary*12 from employee;
 -- 데이터를 넣을 때만 ''쓰고 조회는 안 쓰나..?
 SELECT empName as 사원이름, job as 직급, salary as 월급, (salary*12)+commission as 연봉 from employee;
 
+-- NVL 사용하기 (NULL 값을 계산하기 위한)
+-- NVL(FIELD, VAL)
+SELECT empName as 사원이름, job as 직급, salary as 월급,
+NVL(commission,0)as 보너스, (salary*12)+NVL(commission,0) as 연봉
+from employee;
 
 -- distinct 사용하기 (중복을 제외한다!!)
 SELECT job as 직급 from employee;
